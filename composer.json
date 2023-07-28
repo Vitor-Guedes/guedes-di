@@ -1,17 +1,22 @@
 {
     "name": "guedes/di",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Guedes\\Di\\": "src/"
-        }
-    },
+    "description": "",
     "authors": [
         {
             "name": "Vitor Guedes",
             "email": "vtrf2.0@gmail.com"
         }
     ],
-    "require": {},
-    "version": "1.0.0"
+    "autoload": {
+        "psr-4": {
+            "Guedes\\DI\\": "src/"
+        }
+    },
+    "version": "1.0.0",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
 }
