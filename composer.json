@@ -1,6 +1,5 @@
 {
     "name": "guedes/di",
-    "type": "package",
     "license": "MIT",
     "autoload": {
         "psr-4": {
