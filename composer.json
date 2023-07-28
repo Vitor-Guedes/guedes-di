@@ -1,7 +1,6 @@
 {
     "name": "guedes/di",
     "description": "Pacote para gerenciar injecção de depedencias para os meus projetos",
-    "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
