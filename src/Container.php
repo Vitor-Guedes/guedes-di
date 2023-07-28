@@ -50,10 +50,7 @@ class Container
      */
     public function get(string $name)
     {
-        if ($this->has($name)) {
-            return $this->dependecies[$name];
-        }
-        return false;
+        return $this->has($name) ? $this->dependecies[$name] : false;
     }
 
     /**
@@ -115,47 +112,62 @@ class Container
             $construct = $reflectionClass->getConstructor();
 
             if (!$construct) {
-                return $this->newInstance($abstract, false, $parameters);
+                return $this->newInstance($reflectionClass, false, $parameters);
             }
 
-            return $this->newInstance($abstract, true, $this->factoryParameters($construct));
+            return $this->newInstance($reflectionClass, true, $this->factoryParameters($construct));
         }
         return false;
     }
 
+    /**
+     * @param string $abstract
+     * 
+     * @return bool
+     */
     public function factorySingleton(string $abstract)
     {
-        if (class_exists($abstract)) {
-            return $abstract::getInstance();
-        }
-        return false;
+        return class_exists($abstract) ? $abstract::getInstance() : false;
     }
 
-    protected function getReflectionClass(string $abstract)
+    /**
+     * @param string $abstract
+     * 
+     * @return ReflectionClass
+     */
+    protected function getReflectionClass(string $abstract) : ReflectionClass
     {
         return new ReflectionClass($abstract);
     }
 
-    protected function newInstance(string $abstract, bool $withContructor = true, array $parameters)
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @param bool $withContructor
+     * @param array $parameters
+     * 
+     * @return mixed
+     */
+    protected function newInstance(ReflectionClass $reflectionClass, bool $withContructor = true, array $parameters = [])
     {
-        $reflectionClass = new ReflectionClass($abstract);
         if ($withContructor) {
             return $reflectionClass->newInstanceArgs($parameters);
         }
         return $reflectionClass->newInstanceWithoutConstructor(); 
     }
 
-    public function factoryParameters($construct)
+    /**
+     * @param ReflectionMethod|\Closure $method
+     * 
+     * @return array
+     */
+    protected function factoryParameters($method)
     {
-        $_parameters = [];
-        $parameters = $construct->getParameters();
-        if (count($parameters) > 0) {
-            foreach ($parameters as $parameter) {
-                $_parameters[$parameter->getName()] = $this->factory(
-                    $parameter->getType()->getName()
-                );
-            }
+        $parameters = [];
+        foreach ($method->getParameters() ?? [] as $parameter) {
+            $parameters[$parameter->getName()] = $this->factory(
+                $parameter->getType()->getName()
+            );
         }
-        return $_parameters;
+        return $parameters;
     }
 }
