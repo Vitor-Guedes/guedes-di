@@ -14,7 +14,6 @@
             "email": "vtrf2.0@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "repositories": [
         {
             "type": "vcs",
