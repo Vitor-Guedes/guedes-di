@@ -24,5 +24,6 @@
     "require-dev": {
         "phpunit/phpunit": "9.6.x-dev",
         "guedes/router": "1.0.2"
-    }
+    },
+    "version": "1.0.0"
 }
