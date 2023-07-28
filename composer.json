@@ -1,5 +1,6 @@
 {
     "name": "guedes/di",
+    "type": "package",
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -12,7 +13,6 @@
             "email": "vtrf2.0@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {},
     "version": "1.0.0"
 }
